@@ -1,0 +1,16 @@
+2025-10-29T19:42:59.705781 - Create an AWS EC2 instance with Ubuntu 20.04 in us-east-1
+2025-10-29T19:44:16.149819 - create an EC2 instance
+2025-10-29T19:51:46.643902 - create a terraform script for VM azure
+2025-10-29T19:53:15.187164 - create a terraform script for VM azure
+2025-10-29T19:55:17.897761 - Provision an Azure virtual machine named 'myvm' with a public IP address
+2025-10-29T19:57:34.474149 - Provision an Azure virtual machine named 'myvm' with a public IP address
+2025-10-29T20:06:02.935208 - Provision an Azure virtual machine named 'myvm' with a public IP address
+2025-10-29T20:13:29.875073 - Set up a Google Cloud Storage bucket with versioning enabled
+2025-10-30T13:30:18.906168 - generate terraform script for EC2 instance
+2025-10-31T00:16:55.690166 - create an EC2 instance, VPC with required terraform modules
+2025-10-31T16:15:22.595518 - Write a Terraform script that launches an AWS EC2 instance using the latest Amazon Linux 2 AMI and assigns a t2.micro instance type. Add necessary tags and an SSH key pair.
+2025-10-31T17:49:39.713595 - create AWS based infrastructure with EC2 instance and S3 bucket
+2025-10-31T17:49:42.231440 - create AWS based infrastructure with EC2 instance and S3 bucket
+2025-11-03T13:26:58.994690 - generate a terraform script for EC2 instance
+2025-11-03T14:01:41.008229 - terraform script for VM Azure
+2025-11-03T14:03:38.836322 - terraform script for VM Azure

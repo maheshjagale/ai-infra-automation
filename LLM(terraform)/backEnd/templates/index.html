@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Terraform Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h2>Terraform Script Generator</h2>
+    <form action="/generate" method="post">
+
+        <!-- Free-form Description at the Top -->
+        <div class="section-title">Describe your infrastructure needs:</div>
+        <textarea name="description" rows="3" placeholder="e.g. Deploy a Linux VM on Azure, open port 22, assign public IP..." required></textarea>
+
+        <!-- Provider Selection -->
+        <div class="section-title">Choose a Cloud Provider:</div>
+        <select name="provider" id="provider-select" required>
+            <option value="aws">AWS</option>
+            <option value="azure">Azure</option>
+            <option value="gcp">GCP</option>
+        </select>
+
+        <!-- AWS Section -->
+        <div id="aws-fields" style="display: block;">
+            <div class="section-title">AWS VPC & Subnets</div>
+            <label>Name:</label>
+            <input type="text" name="vpc_name" placeholder="AWS VPC Name" />
+            <label>CIDR Range:</label>
+            <input type="text" name="vpc_cidr" placeholder="10.0.0.0/16" />
+            <div class="section-title">Subnets</div>
+            <label>Number of Subnets:</label>
+            <input type="number" name="num_subnets" id="num_subnets" min="1" max="10" value="1" />
+            <div id="subnets_container"></div>
+            <div class="section-title">Networking Components</div>
+            <label><input type="checkbox" name="internet_gateway" checked> Include Internet Gateway</label><br>
+            <label><input type="checkbox" name="route_table" checked> Include Route Table</label><br>
+            <label><input type="checkbox" name="security_group" checked> Include Security Group</label><br>
+            <div class="section-title">EC2 Instance Details</div>
+            <label>Name:</label><input type="text" name="ec2_name" placeholder="Instance Name" />
+            <label>Instance Type:</label><input type="text" name="ec2_type" placeholder="t2.micro" />
+            <label>Allowed Ports (comma separated):</label><input type="text" name="ec2_ports" value="22,80,443" />
+        </div>
+
+        <!-- Azure Section -->
+        <div id="azure-fields" style="display: none;">
+            <div class="section-title">Azure Resources</div>
+            <label>Resource Group Name:</label>
+            <input type="text" name="rg_name" placeholder="my-rg" />
+            <label>Location:</label>
+            <input type="text" name="location" placeholder="eastus" />
+            <div class="section-title">Virtual Network</div>
+            <label>Name:</label>
+            <input type="text" name="vnet_name" placeholder="my-vnet" />
+            <label>Address Space (CIDR):</label>
+            <input type="text" name="vnet_cidr" placeholder="10.1.0.0/16" />
+            <div class="section-title">Subnet</div>
+            <label>Name:</label>
+            <input type="text" name="subnet_name" placeholder="subnet1" />
+            <label>CIDR Range:</label>
+            <input type="text" name="subnet_cidr" placeholder="10.1.1.0/24" />
+            <div class="section-title">Network Security Group</div>
+            <label>Name:</label>
+            <input type="text" name="nsg_name" placeholder="my-nsg" />
+            <label>Allowed Ports (comma separated):</label>
+            <input type="text" name="azure_ports" value="22,80,443" />
+            <div class="section-title">Virtual Machine</div>
+            <label>Name:</label>
+            <input type="text" name="vm_name" placeholder="myvm1" />
+            <label>Size:</label>
+            <input type="text" name="vm_size" placeholder="Standard_B1s" />
+            <label>OS Type:</label>
+            <select name="os_type">
+                <option value="Linux">Linux</option>
+                <option value="Windows">Windows</option>
+            </select>
+            <label>Admin Username:</label>
+            <input type="text" name="admin_user" placeholder="azureuser" />
+            <label>Password or SSH Key:</label>
+            <input type="text" name="admin_pass" placeholder="MySecurePwd123!" />
+            <label>Assign Public IP?</label>
+            <input type="checkbox" name="assign_public_ip" checked />
+        </div>
+
+        <!-- GCP Section -->
+        <div id="gcp-fields" style="display: none;">
+            <div class="section-title">GCP Resources</div>
+            <label>Project ID:</label>
+            <input type="text" name="gcp_project_id" placeholder="Project ID" />
+            <label>Region:</label>
+            <input type="text" name="gcp_region" placeholder="us-central1" />
+            <div class="section-title">VPC Network</div>
+            <label>Name:</label>
+            <input type="text" name="gcp_vpc_name" placeholder="VPC Name" />
+            <label>Address Space (CIDR):</label>
+            <input type="text" name="gcp_vpc_cidr" placeholder="10.2.0.0/16" />
+            <div class="section-title">Subnet</div>
+            <label>Name:</label>
+            <input type="text" name="gcp_subnet_name" placeholder="Subnet Name" />
+            <label>CIDR Range:</label>
+            <input type="text" name="gcp_subnet_cidr" placeholder="10.2.1.0/24" />
+            <label>Region:</label>
+            <input type="text" name="gcp_subnet_region" placeholder="us-central1" />
+            <div class="section-title">Firewall</div>
+            <label>Name:</label>
+            <input type="text" name="gcp_firewall_name" placeholder="Firewall Name" />
+            <label>Allowed Ports (comma separated):</label>
+            <input type="text" name="gcp_ports" value="22,80,443" />
+            <div class="section-title">Compute Instance (VM)</div>
+            <label>Name:</label>
+            <input type="text" name="gcp_vm_name" placeholder="VM Name" />
+            <label>Machine Type:</label>
+            <input type="text" name="gcp_vm_type" placeholder="e2-micro" />
+            <label>Zone:</label>
+            <input type="text" name="gcp_vm_zone" placeholder="us-central1-a" />
+            <label>Boot Disk Image:</label>
+            <input type="text" name="gcp_image" placeholder="debian-cloud/debian-11" />
+            <label>Assign Public IP?</label>
+            <input type="checkbox" name="gcp_assign_public_ip" checked />
+        </div>
+
+        <button type="submit">Generate Terraform</button>
+    </form>
+
+    {% if generated %}
+        <p class="success">✅ Terraform script generated successfully!</p>
+        <div class="status-block">
+            <p>
+                Saved as:
+                <strong class="filename-cyan">{{ filename }}</strong>
+                in <em>generated_scripts/</em> folder.
+            </p>
+            <a href="{{ url_for('download', filename=filename) }}" class="download-btn">Download Terraform Script</a>
+        </div>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

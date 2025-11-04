@@ -1,0 +1,133 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #23272f;
+    color: #f6f6f6;
+}
+
+.container {
+    background: #181a20;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+    max-width: 440px;
+    margin: 32px auto 0 auto;
+    padding: 36px 36px 24px 36px;
+}
+
+h2 {
+    color: #fff;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+}
+
+.section-title {
+    margin-top: 20px;
+    margin-bottom: 6px;
+    font-size: 1.15rem;
+    color: #68d5ff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+label,
+fieldset legend {
+    color: #f6f6f6;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 12px;
+    padding: 0;
+}
+
+/* Input and textarea styling */
+input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0 16px 0;
+    border-radius: 6px;
+    border: 1px solid #33384d;
+    background: #24262e;
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #3bb8ff;
+    outline: none;
+}
+
+textarea {
+    min-height: 60px;
+    max-width: 100%;
+    resize: vertical;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.15);
+    margin: 0 7px 0 0;
+}
+
+button {
+    background: linear-gradient(90deg, #3bb8ff 0%, #2e72f6 100%);
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 14px 0;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #56ffe0 0%, #3898ec 100%);
+    color: #27282f;
+}
+
+/* Success block and filename styling */
+.success {
+    background: #24262e;
+    color: #60e6cc;
+    border-left: 5px solid #48b8c6;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin: 24px 0 8px 0;
+}
+
+.status-block {
+    background: #232738;
+    color: #b3b9c9;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-bottom: 12px;
+}
+
+.filename-cyan {
+    color: #68d5ff;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 8px;
+    background: #68d5ff;
+    color: #181a20;
+    padding: 8px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.download-btn:hover {
+    background: #21efef;
+    color: #23272f;
+}
